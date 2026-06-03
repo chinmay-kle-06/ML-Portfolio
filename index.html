@@ -6,56 +6,65 @@
     <title>Machine Learning Portfolio - Chinmay Sabarad</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* Updated Light Theme Variables */
+        /* Light theme: white background + light-blue highlights */
         :root {
-            --bg-dark: #eff3ff;
-            --bg-panel: #ffffff;
-            --bg-panel-light: #f8fbff;
-            --text-main: #102a43;
-            --text-muted: #5b6d8d;
-            --accent-blue: #38bdf8;
-            --accent-glow: rgba(56, 189, 248, 0.18);
-            --border-color: #dbe4f8;
-            --code-bg: #e3efff;
+            --bg-dark: #ffffff; /* page background */
+            --bg-panel: #ffffff; /* cards / panels */
+            --bg-panel-light: #eef6ff; /* hero / subtle blue areas */
+            --text-main: #072033; /* dark navy text */
+            --text-muted: #6b7280; /* gray muted text */
+            --accent-blue: #3ec8ff; /* light blue highlight */
+            --accent-glow: rgba(62, 200, 255, 0.14);
+            --border-color: #e6eef7; /* very light border */
+            --code-bg: #f6f9fc; /* light code bg */
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', 'Inter', 'Segoe UI', Roboto, sans-serif; }
-        body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.7; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', 'Segoe UI', Roboto, sans-serif; }
+        body { background-color: var(--bg-panel-light); color: var(--text-main); line-height: 1.7; }
 
         /* Navigation */
         nav {
-            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px);
-            padding: 1.2rem 2rem; display: flex; justify-content: center; align-items: center; 
+            background: var(--bg-panel);
+            padding: 1.2rem 2rem; display: flex; justify-content: center; align-items: center;
             border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100;
+            box-shadow: 0 6px 18px rgba(16, 24, 40, 0.03);
         }
-        
-        .logo { position: absolute; left: 2rem; font-size: 1.4rem; font-weight: 700; letter-spacing: 0.5px; opacity: 0.95; color: var(--text-main); }
+
+        .logo { position: absolute; left: 2rem; font-size: 1.5rem; font-weight: 800; letter-spacing: 0.2px; opacity: 0.95; color: var(--text-main); }
         .logo span { color: var(--accent-blue); }
         
         .nav-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
         .nav-btn {
             background: none; border: none; color: var(--text-muted); font-size: 1rem; font-weight: 600;
-            cursor: pointer; transition: all 0.3s ease; padding: 0.5rem 1rem; border-radius: 6px;
+            cursor: pointer; transition: all 0.3s ease; padding: 0.5rem 1rem; border-radius: 8px;
         }
-        .nav-btn:hover, .nav-btn.active { color: var(--accent-blue); text-shadow: 0 0 8px var(--accent-glow); background: rgba(56, 189, 248, 0.14); }
+        .nav-btn:hover, .nav-btn.active { color: var(--accent-blue); text-shadow: 0 0 8px var(--accent-glow); background: rgba(62, 200, 255, 0.08); }
 
         /* Layout Container */
         .container { max-width: 1250px; margin: 0 auto; padding: 3rem 2rem; }
+        /* Hero section (large light-blue banner) - full-bleed on homepage */
+        #home > .hero { background: var(--bg-panel-light); padding: 4rem 2rem; margin: 1.5rem 0 2rem; display:flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; 
+            width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; border-bottom-left-radius: 18px; border-bottom-right-radius: 18px; }
         .page-section { display: none; animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
         .page-section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
         /* Typography */
-        h1 { font-size: 3.5rem; margin-bottom: 0.5rem; color: var(--text-main); line-height: 1.2; letter-spacing: -1px; }
+        h1 { font-size: 3.5rem; margin-bottom: 0.5rem; color: var(--text-main); line-height: 1.1; letter-spacing: -1px; }
         h2 { font-size: 2.2rem; color: var(--accent-blue); margin-bottom: 1.5rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem;}
         h3 { font-size: 1.5rem; color: var(--text-main); margin-top: 2rem; margin-bottom: 1rem; }
         h4 { font-size: 1.2rem; color: var(--accent-blue); margin-top: 1.5rem; margin-bottom: 0.8rem; }
         p { margin-bottom: 1.2rem; color: var(--text-muted); font-size: 1.05rem; }
-        .highlight { color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-glow); }
+        .highlight { color: var(--accent-blue); text-shadow: 0 0 8px var(--accent-glow); }
 
         /* Panels & Cards */
-        .panel { background-color: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 10px; padding: 2.5rem; margin-bottom: 2rem; box-shadow: 0 15px 40px rgba(16, 42, 67, 0.08); } 
-        .code-box { background-color: var(--code-bg); border: 1px solid var(--border-color); border-radius: 6px; padding: 1rem; font-family: 'Courier New', Courier, monospace; color: #334e68; overflow-x: auto; margin-bottom: 1.5rem; font-size: 0.9rem; }
+        .panel { background-color: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 10px; padding: 2.5rem; margin-bottom: 2rem; box-shadow: 0 6px 18px rgba(16,24,40,0.04); }
+        .about-card-grid { display: grid; grid-template-columns: 260px 1fr; gap: 2rem; align-items: start; }
+        .about-image-card { width: 100%; max-width: 260px; background: #fff; border: 1px solid var(--border-color); border-radius: 16px; padding: 1rem; box-shadow: 0 10px 30px rgba(16,24,40,0.08); }
+        .about-image-card img { width: 100%; height: auto; border-radius: 14px; display: block; }
+        .about-card-grid .about-card-text { display: flex; flex-direction: column; gap: 1rem; align-items: flex-start; text-align: left; }
+        @media (max-width: 900px) { .about-card-grid { grid-template-columns: 1fr; } }
+        .code-box { background-color: var(--code-bg); border: 1px solid var(--border-color); border-radius: 6px; padding: 1rem; font-family: 'Courier New', Courier, monospace; color: #a5b4fc; overflow-x: auto; margin-bottom: 1.5rem; font-size: 0.9rem; }
         ul { margin-bottom: 1.5rem; margin-left: 1.5rem; color: var(--text-muted); }
         li { margin-bottom: 0.7rem; }
         li strong { color: var(--text-main); }
@@ -66,10 +75,6 @@
         .project-tabs::-webkit-scrollbar { height: 6px; }
         .project-tabs::-webkit-scrollbar-thumb { background: var(--accent-blue); border-radius: 4px; }
         
-        .about-header { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
-        .profile-card { background: var(--bg-panel-light); border: 1px solid var(--border-color); border-radius: 18px; padding: 0.6rem; width: 180px; box-shadow: 0 15px 30px rgba(16, 42, 67, 0.08); }
-        .profile-img { width: 100%; height: auto; border-radius: 16px; display: block; object-fit: cover; }
-        
         .proj-tab-btn { background: var(--bg-panel-light); border: 1px solid var(--border-color); color: var(--text-muted); padding: 0.6rem 1.2rem; border-radius: 20px; font-size: 0.95rem; font-weight: 500; cursor: pointer; transition: all 0.3s; white-space: nowrap; }
         .proj-tab-btn:hover { border-color: var(--accent-blue); color: var(--text-main); }
         .proj-tab-btn.active { background: var(--accent-blue); color: #fff; border-color: var(--accent-blue); box-shadow: 0 0 10px var(--accent-glow); } 
@@ -78,120 +83,182 @@
 
         /* Stats Grid */
         .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
-        .stat-box { background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.2); padding: 1.5rem; border-radius: 8px; text-align: center; transition: transform 0.3s; }
+        .stat-box { background: rgba(62, 200, 255, 0.04); border: 1px solid rgba(62, 200, 255, 0.15); padding: 1.5rem; border-radius: 8px; text-align: center; transition: transform 0.3s; }
         .stat-box:hover { transform: translateY(-5px); border-color: var(--accent-blue); }
         .stat-box .number { font-size: 2.8rem; font-weight: 800; color: var(--accent-blue); margin-bottom: 0.5rem;}
-        .badge { display: inline-block; background: rgba(56, 189, 248, 0.12); color: var(--accent-blue); padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.85rem; font-weight: bold; margin-right: 0.5rem; }
+        .badge { display: inline-block; background: rgba(14, 165, 233, 0.15); color: var(--accent-blue); padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.85rem; font-weight: bold; margin-right: 0.5rem; }
+
+        /* Course Outcome Grid */
+        .co-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2.5rem; }
+        @media (max-width: 800px) { .co-grid { grid-template-columns: 1fr; } }
+        .co-card { background: var(--bg-panel-light); border: 1px solid var(--border-color); border-radius: 8px; padding: 1.5rem; position: relative; overflow: hidden; transition: all 0.3s;}
+        .co-card:hover { border-color: var(--accent-blue); box-shadow: 0 4px 15px rgba(14, 165, 233, 0.1); transform: translateY(-3px);}
+        .co-card::before { content: ""; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--accent-blue); }
+        .co-title { font-size: 1.2rem; color: var(--accent-blue); margin-bottom: 0.8rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;}
+        .co-badge { background: var(--accent-blue); color: #fff; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
 
         /* Visual Containers */
         .chart-container { position: relative; height: 400px; width: 100%; margin: 2rem 0; background: var(--bg-panel-light); border-radius: 8px; padding: 1rem; border: 1px solid var(--border-color); }
+        .radar-container { height: 450px; width: 100%; display: flex; justify-content: center; align-items: center; margin-top: 1rem; background: #0f172a; border-radius: 16px; padding: 1rem; border: 1px solid rgba(255,255,255,0.08); }
+        .radar-container canvas { background: transparent; border-radius: 12px; }
         
         /* Confusion Matrix CSS */
-        .matrix-wrapper { display: flex; justify-content: center; margin: 2rem 0; color: #fff; }
+        .matrix-wrapper { display: flex; justify-content: center; margin: 2rem 0; color: var(--accent-blue); }
         .matrix { display: grid; grid-template-columns: 80px 150px 150px; grid-template-rows: 80px 150px 150px; gap: 4px; text-align: center; }
         .matrix div { display: flex; align-items: center; justify-content: center; border-radius: 4px; font-weight: bold; }
         .m-label { background: transparent; font-size: 0.9rem; color: var(--text-muted); }
         .m-cell { flex-direction: column; font-size: 1.5rem; text-shadow: 1px 1px 2px #000; }
         .m-cell span { font-size: 0.8rem; font-weight: normal; opacity: 0.8; margin-top: 5px; }
-        /* Heatmap Colors */
-        .tp { background: rgba(56, 189, 248, 0.9); }
-        .tn { background: rgba(56, 189, 248, 0.7); }
-        .fp { background: rgba(244, 63, 94, 0.4); }
-        .fn { background: rgba(244, 63, 94, 0.6); }
+        .tp { background: rgba(14, 165, 233, 0.9); }
+        .tn { background: rgba(14, 165, 233, 0.7); }
+        .fp { background: rgba(225, 29, 72, 0.4); }
+        .fn { background: rgba(225, 29, 72, 0.6); }
 
         /* Custom Button Styling */
         .btn-primary {
-            background: var(--accent-blue); color: white; border: 1px solid var(--accent-blue); 
-            padding: 0.8rem 2rem; font-size: 1.05rem; font-weight: 600; border-radius: 6px; 
-            cursor: pointer; box-shadow: 0 0 12px var(--accent-glow); transition: all 0.2s;
+            background: var(--accent-blue); color: white; border: 1px solid var(--accent-blue);
+            padding: 0.8rem 2rem; font-size: 1.05rem; font-weight: 600; border-radius: 8px;
+            cursor: pointer; box-shadow: 0 6px 18px rgba(62,200,255,0.12); transition: all 0.2s;
         }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 16px rgba(56, 189, 248, 0.2); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(62,200,255,0.18); }
         
         .btn-secondary {
-            background: transparent; color: var(--accent-blue); border: 2px solid var(--accent-blue); 
-            padding: 0.8rem 2rem; font-size: 1.05rem; font-weight: 600; border-radius: 6px; 
+            background: transparent; color: var(--accent-blue); border: 2px solid var(--accent-blue);
+            padding: 0.8rem 2rem; font-size: 1.05rem; font-weight: 600; border-radius: 8px;
             cursor: pointer; transition: all 0.2s;
         }
-        .btn-secondary:hover { background: rgba(56, 189, 248, 0.14); transform: translateY(-2px); }
+        .btn-secondary:hover { background: rgba(62, 200, 255, 0.08); transform: translateY(-2px); }
 
-        @media (max-width: 720px) {
-            body { padding: 0 0.5rem; }
-            nav { flex-direction: column; align-items: stretch; padding: 1rem 1rem; }
-            .logo { position: relative; left: 0; text-align: center; width: 100%; margin-bottom: 0.8rem; }
-            .nav-links { justify-content: center; gap: 0.75rem; }
-            .nav-btn { padding: 0.7rem 0.9rem; font-size: 0.95rem; }
-            .container { padding: 2rem 1rem; }
-            h1 { font-size: 2.6rem; }
-            h2 { font-size: 1.75rem; }
-            h3 { font-size: 1.3rem; }
-            .panel { padding: 1.8rem; }
-            .code-box { font-size: 0.85rem; }
-            .about-header { flex-direction: column; align-items: flex-start; }
-            .profile-card { width: 100%; max-width: 220px; }
-            .project-tabs { gap: 0.5rem; }
-            .proj-tab-btn { flex: 1 1 100%; min-width: 0; padding: 0.75rem 1rem; text-align: center; }
-            .stat-grid { grid-template-columns: 1fr; }
-            .chart-container { height: 300px; }
-            .matrix-wrapper { flex-direction: column; }
-            .matrix { grid-template-columns: 1fr; grid-template-rows: repeat(6, auto); }
-            .matrix div { min-height: auto; padding: 0.75rem; }
-            .btn-primary, .btn-secondary { width: 100%; padding: 0.85rem 1rem; }
-            .page-section { padding-bottom: 1rem; }
+        /* Lab Card Styling */
+        .lab-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 2.5rem;
+            overflow: hidden;
+            transition: border-color 0.3s;
         }
+        .lab-card:hover { border-color: var(--accent-blue); }
+        
+        .lab-header {
+            padding: 1rem 1.5rem;
+            background: transparent;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .lab-title { color: var(--accent-blue); font-size: 1.25rem; font-weight: 600; margin: 0; }
+        
+        .lab-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            padding: 1.5rem;
+        }
+        @media (max-width: 950px) { .lab-body { grid-template-columns: 1fr; } }
+
+        .lab-text-content { padding-right: 0.5rem; }
+        
+        .lab-code-wrapper {
+            background: #0b1220;
+            border: 1px solid #1f2937;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .lab-code {
+            padding: 1rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.85rem;
+            color: #f8fafc;
+            background: transparent;
+            height: 250px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            border-bottom: 1px dashed rgba(255,255,255,0.12);
+            flex-grow: 1;
+        }
+        .lab-output {
+            padding: 1rem;
+            background: rgba(0,0,0,0.6);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .lab-output pre {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.85rem;
+            color: #4ade80; /* Terminal Green */
+            white-space: pre-wrap;
+            margin: 0;
+        }
+        .lab-chart-container {
+            height: 250px;
+            width: 100%;
+            padding: 1rem;
+            background: #030610;
+        }
+
+        .lab-code::-webkit-scrollbar { width: 6px; }
+        .lab-code::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
 
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo"><strong>Chinmay Sabarad</strong></div>
+        <div class="logo">Chinmay Sabarad</div>
         <div class="nav-links">
             <button class="nav-btn active" onclick="switchPage('home')">Home</button>
             <button class="nav-btn" onclick="switchPage('about')">About Me</button>
             <button class="nav-btn" onclick="switchPage('courses')">My Course</button>
+            <button class="nav-btn" onclick="switchPage('lab')">Lab Activities</button>
             <button class="nav-btn" onclick="switchPage('projects')">My Project</button>
+            <button class="nav-btn" onclick="switchPage('outcomes')">Course Outcomes</button>
         </div>
     </nav>
 
     <div class="container">
         
         <section id="home" class="page-section active">
-            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 65vh;">
-                
+            <div class="hero" style="min-height: 65vh;">
                 <h1 style="font-size: 4.5rem; margin-bottom: 0.5rem;">Machine Learning <span class="highlight">Portfolio</span></h1>
-                
                 <p style="font-size: 1.3rem; color: var(--text-muted); font-style: italic; letter-spacing: 0.5px; margin-bottom: 3rem;">
                     Under the Guidance of <span style="color: var(--text-main); font-weight: 600;">Ms. Neha Tarannum</span>, Professor — Dept. of CSE.
                 </p>
-                
                 <div style="display: flex; gap: 1.2rem; flex-wrap: wrap; justify-content: center;">
-                    <button onclick="switchPage('courses')" class="btn-secondary">View About my course</button>
+                    <button onclick="switchPage('outcomes')" class="btn-secondary">View Course Outcomes</button>
                     <button onclick="switchPage('projects')" class="btn-primary">View my Project</button>
                 </div>
-
             </div>
         </section>
 
         <section id="about" class="page-section">
             <h2>About Me</h2>
             <div class="panel">
-                <div class="about-header">
-                    <div>
-                        <h3 style="margin-top: 0; font-size: 2rem; color: var(--text-main);">Chinmay Sabarad</h3>
-                        <p class="highlight" style="font-weight: 600; font-size: 1.1rem; margin-bottom: 1.5rem;">Computer Science Undergraduate | KLE Technological University</p>
+                <div class="about-card-grid">
+                    <div class="about-image-card">
+                        <img src="image.png" alt="Chinmay Sabarad" />
                     </div>
-                    <div class="profile-card">
-                        <img src="image.png" alt="Chinmay Sabarad" class="profile-img">
+                    <div class="about-card-text">
+                        <div>
+                            <h3 style="margin-top: 0; font-size: 2rem; color: var(--text-main);">Chinmay Sabarad</h3>
+                            <p class="highlight" style="font-weight: 600; font-size: 1.1rem; margin-bottom: 1.5rem;">Computer Science Undergraduate | KLE Technological University</p>
+                        </div>
+                        <div>
+                            <p>I am a second-year Computer Science student at <strong>KLE Technological University</strong> in Hubballi, Karnataka. Driven by a deep curiosity for data and algorithms, my academic journey is intensely focused on the intersection of Machine Learning, Neural Networks, and Data Science.</p>
+                            <p>Beyond the standard curriculum, I actively seek out complex computational challenges. My technical interests span across building predictive models, optimizing highly categorical tabular datasets, and participating in competitive data science platforms like Kaggle. I also maintain a strong programming foundation in <strong>C, C++, and SQL</strong>, ensuring my models are backed by efficient, scalable code.</p>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--accent-blue); margin-top: 2.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; display: inline-block;">Current Focus Areas</h4>
+                            <ul style="margin-top: 1rem;">
+                                <li><strong>Predictive Modeling & Ensembles:</strong> Tuning heavy-duty gradient boosters (XGBoost, LightGBM, CatBoost) to extract signals from noisy data.</li>
+                                <li><strong>Feature Engineering & Imputation:</strong> Designing deterministic imputation logic and mathematical relationships to improve model baseline accuracy without relying blindly on statistical averages.</li>
+                                <li><strong>Algorithmic Problem Solving:</strong> Applying graph theory to real-world mapping and developing multi-client networking protocols.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-                <p>Beyond the standard curriculum, I actively seek out complex computational challenges. My technical interests span across building predictive models, optimizing highly categorical tabular datasets, and participating in competitive data science platforms like Kaggle. I also maintain a strong programming foundation in <strong>C, C++, and SQL</strong>, ensuring my models are backed by efficient, scalable code.</p>
-                
-                <h4 style="color: var(--accent-blue); margin-top: 2.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; display: inline-block;">Current Focus Areas</h4>
-                <ul style="margin-top: 1rem;">
-                    <li><strong>Predictive Modeling & Ensembles:</strong> Tuning heavy-duty gradient boosters (XGBoost, LightGBM, CatBoost) to extract signals from noisy data.</li>
-                    <li><strong>Feature Engineering & Imputation:</strong> Designing deterministic imputation logic and mathematical relationships to improve model baseline accuracy without relying blindly on statistical averages.</li>
-                    <li><strong>Algorithmic Problem Solving:</strong> Applying graph theory to real-world mapping and developing multi-client networking protocols.</li>
-                </ul>
             </div>
         </section>
 
@@ -230,6 +297,228 @@
                     <li><strong>Density-Based Spatial Clustering (DBSCAN):</strong> Mapped out non-linear data topologies by configuring epsilon (ε) and minimum points thresholds, correctly classifying core, border, and noise points without assuming predetermined cluster shapes.</li>
                 </ul>
             </div>
+        </section>
+
+        <section id="lab" class="page-section">
+            <h2>Laboratory Activities</h2>
+            <p>A collection of hands-on implementations bridging the gap between mathematical theory and raw Python code. Below are the core Jupyter Notebooks built during my laboratory sessions.</p>
+            
+            <div class="lab-card">
+                <div class="lab-header">
+                    <span class="badge">Chapter 3</span>
+                    <h3 class="lab-title">Function Composition & Complexity</h3>
+                </div>
+                <div class="lab-body">
+                    <div class="lab-text-content">
+                        <p>This session focused on the core concept that <strong>"Composition Creates Complexity."</strong></p>
+                        <ul>
+                            <li>Manually coded functional compositions mapping variables sequentially through $f(x)$ and $g(x)$.</li>
+                            <li>Demonstrated how stacking simple mathematical operations creates vastly more complex, non-linear outputs, which is the foundational premise behind stacking layers in Deep Learning.</li>
+                            <li>Visualized the divergence between individual functions and their composition.</li>
+                        </ul>
+                    </div>
+                    <div class="lab-code-wrapper">
+<div class="lab-code">import numpy as np
+import matplotlib.pyplot as plt
+
+# Step 1: Define Functions
+def f(x):
+    return x * x          # f(x) = x^2
+
+def g(x):
+    return 2*x + 1        # g(x) = 2x + 1
+
+# Define composition f(g(x))
+def fog(x):
+    return f(g(x))        # f(g(x)) = (2x + 1)^2
+
+# Generate data points
+x_values = np.linspace(-5, 5, 100)
+f_values = f(x_values)
+g_values = g(x_values)
+fog_values = fog(x_values)
+
+# Plot Results
+plt.figure()
+plt.plot(x_values, f_values, label="f(x) = x^2")
+plt.plot(x_values, g_values, label="g(x) = 2x + 1")
+plt.plot(x_values, fog_values, label="f(g(x)) = (2x+1)^2")
+plt.show()</div>
+                        <div class="lab-chart-container">
+                            <canvas id="labChart3"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lab-card">
+                <div class="lab-header">
+                    <span class="badge">Chapter 4</span>
+                    <h3 class="lab-title">Neural Network from Scratch (NumPy)</h3>
+                </div>
+                <div class="lab-body">
+                    <div class="lab-text-content">
+                        <p>In this lab, I built a custom <strong>Deep Neural Network</strong> entirely from scratch using only NumPy matrices to demystify how frameworks operate under the hood.</p>
+                        <ul>
+                            <li><strong>Dataset:</strong> Generated the classic "Two Moons" non-linear dataset.</li>
+                            <li><strong>Architecture:</strong> Constructed a deep <code>2 → 12 → 12 → 1</code> layer topology.</li>
+                            <li><strong>Math Implementation:</strong> Hard-coded the Sigmoid activation functions and their mathematical derivatives.</li>
+                            <li><strong>Optimization:</strong> Implemented the forward pass, calculated Cross-Entropy loss, and performed manual gradient updates via backpropagation over 2,000 epochs.</li>
+                        </ul>
+                    </div>
+                    <div class="lab-code-wrapper">
+<div class="lab-code"># ==========================================
+# Exercise 4.11: Neural Net from Scratch 
+# Architecture: 2 → 12 → 12 → 1
+# ==========================================
+import numpy as np
+
+# --- Generate Two Moons Dataset ---
+def generate_two_moons(n_samples=500, noise=0.1):
+    n_out = n_samples // 2
+    n_in = n_samples - n_out
+
+    theta_out = np.linspace(0, np.pi, n_out)
+    x_out = np.cos(theta_out)
+    theta_in = np.linspace(0, np.pi, n_in)
+    x_in = 1 - np.cos(theta_in)
+    # ... Matrix Stacking Logic ...
+
+# --- Initialize Parameters ---
+np.random.seed(42)
+W1 = np.random.randn(2, 12) * 0.1
+b1 = np.zeros((1, 12))
+# ... [Forward & Backward Pass Executed in Loop] ...</div>
+                        <div class="lab-output"><pre>Epoch 0, Loss = 0.6954
+Epoch 200, Loss = 0.6768
+Epoch 400, Loss = 0.2793
+Epoch 600, Loss = 0.2512
+Epoch 800, Loss = 0.2501
+Epoch 1000, Loss = 0.2493
+Epoch 1200, Loss = 0.2487
+... Plotting Decision Boundary & Loss Curve...</pre></div>
+                        <div class="lab-chart-container">
+                            <canvas id="labChart4"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lab-card">
+                <div class="lab-header">
+                    <span class="badge">Chapter 6</span>
+                    <h3 class="lab-title">Decision Trees & Impurity Metrics</h3>
+                </div>
+                <div class="lab-body">
+                    <div class="lab-text-content">
+                        <p>This lab centered around the mathematics governing Decision Tree splits. I coded information gain criteria from scratch to evaluate split quality.</p>
+                        <ul>
+                            <li><strong>Gini Impurity:</strong> Wrote a pure Python loop to calculate Gini equations for both binary and multi-class target arrays.</li>
+                            <li><strong>Information Gain:</strong> Implemented <code>information_gain(parent, children)</code> to mathematically determine the optimal node split during tree construction.</li>
+                            <li>Tested the raw mathematical logic against specific boolean arrays (e.g., verifying that a perfectly split <code>[0,0,1,1]</code> array yields a max Gini impurity of <code>0.5</code>).</li>
+                        </ul>
+                    </div>
+                    <div class="lab-code-wrapper">
+<div class="lab-code"># Gini Impurity (works for binary & multi-class)
+def gini_impurity(y):
+    n = len(y)
+    if n == 0: return 0.0
+
+    counts = {}
+    for label in y:
+        counts[label] = counts.get(label, 0) + 1
+
+    gini = 1.0
+    for count in counts.values():
+        p = count / n
+        gini -= p * p
+    return gini
+
+# Information Gain using Gini impurity
+def information_gain(parent, children):
+    n_parent = len(parent)
+    if n_parent == 0: return 0.0
+
+    parent_impurity = gini_impurity(parent)
+    weighted_child_impurity = 0.0
+    
+    for child in children:
+        weight = len(child) / n_parent
+        weighted_child_impurity += weight * gini_impurity(child)
+
+    return parent_impurity - weighted_child_impurity
+
+# --- TEST CASES ---
+print("Gini([0,0,0,0,0]) =", gini_impurity([0, 0, 0, 0, 0]))
+print("Gini([0,0,1,1])   =", gini_impurity([0, 0, 1, 1]))
+print("Gini([0,1,2])     =", gini_impurity([0, 1, 2]))</div>
+                        <div class="lab-output"><pre>Gini([0,0,0,0,0]) = 0.0
+Gini([0,0,1,1])   = 0.5
+Gini([0,0,0,1])   = 0.375
+
+Multi-class example:
+Gini([0,1,2])     = 0.6666666666666665
+
+Information Gain example:
+Parent labels      = [0, 0, 0, 1, 1, 1]
+Left child labels  = [0, 0, 0]
+Right child labels = [1, 1, 1]
+Information Gain   = 0.5</pre></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lab-card">
+                <div class="lab-header">
+                    <span class="badge">Exercise 7</span>
+                    <h3 class="lab-title">Bayesian Probability & Medical Diagnostics</h3>
+                </div>
+                <div class="lab-body">
+                    <div class="lab-text-content">
+                        <p>Moving into probabilistic modeling, this notebook applied <strong>Bayes' Theorem</strong> to understand diagnostic reliability in healthcare scenarios.</p>
+                        <ul>
+                            <li>Programmed the Bayesian mathematical formula to evaluate $P(\text{Disease} \mid \text{Test}^+)$.</li>
+                            <li>Visualized the fundamental flaw of "base-rate neglect" by plotting how the reliability of a positive test dramatically shifts as the underlying population prevalence ranges from a rare 0.1% to a common 50%.</li>
+                        </ul>
+                    </div>
+                    <div class="lab-code-wrapper">
+<div class="lab-code">"""
+Exercise 7.15: Implement Bayes' theorem for medical diagnosis. 
+Plot how P(Disease|Test+) varies as prevalence ranges from 0.1% to 50%.
+"""
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Given test characteristics
+sensitivity = 0.90          # P(Test+ | Disease)
+specificity = 0.90          # P(Test- | No Disease)
+false_positive_rate = 1 - specificity
+
+# Prevalence range: 0.1% to 50%
+prevalence = np.linspace(0.001, 0.5, 500)
+
+# Bayes' theorem computation
+# P(Disease | Test+) = (Sens * Prev) / (Sens * Prev + FPR * (1 - Prev))
+
+posterior = (sensitivity * prevalence) / (
+    sensitivity * prevalence + false_positive_rate * (1 - prevalence)
+)
+
+# Plotting the Posterior Probability
+plt.figure()
+plt.plot(prevalence * 100, posterior * 100)
+plt.xlabel("Disease Prevalence (%)")
+plt.ylabel("P(Disease | Test +) (%)")
+plt.title("Effect of Prevalence on Posterior Probability")
+plt.grid(True)
+plt.show()</div>
+                        <div class="lab-chart-container">
+                            <canvas id="labChart7"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
         <section id="projects" class="page-section">
@@ -283,10 +572,7 @@
                         <li><strong>Log Transformations:</strong> Financial spend columns contained massive right-skewed outliers. I applied <code>np.log1p()</code> across all spending metrics to compress the variance, making the data highly interpretable for linear meta-models.</li>
                     </ul>
                     <p>The interactive chart below visualizes the mathematical difference before and after outlier scaling/log-transformation:</p>
-                    
-                    <div class="chart-container">
-                        <canvas id="scalingChart"></canvas>
-                    </div>
+                    <div class="chart-container"><canvas id="scalingChart"></canvas></div>
                 </div>
 
                 <div id="analysis" class="proj-content">
@@ -310,9 +596,7 @@
 
                     <h4>Feature Importance Insights:</h4>
                     <p>By evaluating the models' internal feature weights, we can see exactly which data points drove the survival predictions. <strong>CryoSleep</strong> and strict <strong>Cabin Locations</strong> dominated the algorithm's decisions.</p>
-                    <div class="chart-container">
-                        <canvas id="importanceChart"></canvas>
-                    </div>
+                    <div class="chart-container"><canvas id="importanceChart"></canvas></div>
                 </div>
 
                 <div id="model" class="proj-content">
@@ -352,9 +636,9 @@ best_oof = weight * stack_oof + (1.0 - weight) * simple_oof
                     </ul>
                     
                     <div class="stat-grid" style="grid-template-columns: 1fr;">
-                        <div class="stat-box" style="border-color: var(--accent-blue); background: rgba(56, 189, 248, 0.12);">
+                        <div class="stat-box" style="border-color: var(--accent-blue); background: rgba(14, 165, 233, 0.1);">
                             <div class="number" style="font-size: 3.5rem;">~82.0%</div>
-                            <div style="font-size: 1.2rem; color: #102a43;">Multi-Model + Post-Processing Pipeline</div>
+                            <div style="font-size: 1.2rem; color: var(--accent-blue);">Multi-Model + Post-Processing Pipeline</div>
                         </div>
                     </div>
                 </div>
@@ -381,44 +665,138 @@ best_oof = weight * stack_oof + (1.0 - weight) * simple_oof
 
             </div>
         </section>
+
+        <section id="outcomes" class="page-section">
+            <h2>Course Outcomes & Competencies</h2>
+            <p>By integrating rigorous theoretical lectures with applied laboratory programming and a comprehensive capstone project, I have successfully achieved the following core outcomes associated with the Machine Learning curriculum.</p>
+            
+            <div class="panel">
+                <div class="co-grid">
+                    <div class="co-card">
+                        <div class="co-title"><span class="co-badge">CO1</span> Mathematical Foundations</div>
+                        <p style="margin-bottom: 0; font-size: 0.95rem;">Ability to comprehend and manually implement the underlying mathematics of machine learning algorithms, including gradient descent calculus, entropy/gini calculations, and Bayesian probability logic from scratch.</p>
+                    </div>
+                    
+                    <div class="co-card">
+                        <div class="co-title"><span class="co-badge">CO2</span> Data Engineering & Preprocessing</div>
+                        <p style="margin-bottom: 0; font-size: 0.95rem;">Proficiency in aggressively cleaning, transforming, and engineering complex features from highly categorical and noisy tabular datasets to optimize model baseline performance.</p>
+                    </div>
+
+                    <div class="co-card">
+                        <div class="co-title"><span class="co-badge">CO3</span> Model Architecture & Ensembling</div>
+                        <p style="margin-bottom: 0; font-size: 0.95rem;">Capability to design, configure, and combine diverse predictive models—ranging from custom Deep Neural Networks to advanced gradient boosting algorithms (XGBoost, LightGBM) via Stacked Meta-Ensembles.</p>
+                    </div>
+
+                    <div class="co-card">
+                        <div class="co-title"><span class="co-badge">CO4</span> Critical Evaluation & Tuning</div>
+                        <p style="margin-bottom: 0; font-size: 0.95rem;">Skill to rigorously evaluate model generalization using Stratified K-Fold Cross Validation, analyze feature importance architectures, and manipulate probability thresholds for real-world deployment.</p>
+                    </div>
+                </div>
+
+                <h3 style="text-align: center; color: var(--accent-blue); border-bottom: none; margin-bottom: 0;">Skill Proficiency Profile</h3>
+                <p style="text-align: center; font-size: 0.9rem; color: var(--text-muted);">Visual mapping of acquired competencies across the ML pipeline.</p>
+                
+                <div class="radar-container">
+                    <canvas id="outcomeChart"></canvas>
+                </div>
+            </div>
+        </section>
+
     </div>
 
     <script>
-        // Main Navigation
+        // Main Navigation Logic
         function switchPage(pageId) {
             document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             
-            // Find the matching nav button to highlight
             const navButtons = Array.from(document.querySelectorAll('.nav-btn'));
             const activeButton = navButtons.find(btn => btn.getAttribute('onclick').includes(pageId));
             if(activeButton) activeButton.classList.add('active');
             
             window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Render Lab Charts when Lab page is opened
+            if (pageId === 'lab') {
+                renderLabCharts();
+            }
+            if (pageId === 'outcomes') {
+                renderOutcomeChart();
+            }
         }
 
-        let chartsRendered = { features: false, preprocess: false };
+        let projChartsRendered = { features: false, preprocess: false };
+        let labChartsRendered = false;
+        let outcomeChartRendered = false;
 
-        // Project Tabs & Lazy Loading Charts
+        // Project Tabs Logic
         function switchProjTab(tabId) {
             document.querySelectorAll('.proj-content').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.proj-tab-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
             event.currentTarget.classList.add('active');
 
-            // Render Charts only when their tab is visible (Fixes Chart.js canvas sizing issues)
-            if (tabId === 'features' && !chartsRendered.features) {
+            if (tabId === 'features' && !projChartsRendered.features) {
                 renderImportanceChart();
-                chartsRendered.features = true;
+                projChartsRendered.features = true;
             }
-            if (tabId === 'preprocess' && !chartsRendered.preprocess) {
+            if (tabId === 'preprocess' && !projChartsRendered.preprocess) {
                 renderScalingChart();
-                chartsRendered.preprocess = true;
+                projChartsRendered.preprocess = true;
             }
         }
 
-        // 1. Feature Importance Chart (Real Data)
+        // ==========================================
+        // OUTCOME RADAR CHART
+        // ==========================================
+        function renderOutcomeChart() {
+            if (outcomeChartRendered) return;
+            outcomeChartRendered = true;
+
+            const ctx = document.getElementById('outcomeChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: [
+                        'Algorithmic Theory (CO1)', 
+                        'Data Preprocessing (CO2)', 
+                        'Feature Engineering (CO2)', 
+                        'Ensemble Architecture (CO3)', 
+                        'Model Optimization (CO4)', 
+                        'Python Implementation'
+                    ],
+                    datasets: [{
+                        label: 'Proficiency Level',
+                        data: [85, 95, 90, 95, 88, 92],
+                        backgroundColor: 'rgba(14, 165, 233, 0.2)',
+                        borderColor: '#0ea5e9',
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: '#0ea5e9',
+                        pointHoverBackgroundColor: '#0ea5e9',
+                        pointHoverBorderColor: '#fff',
+                        borderWidth: 2,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            pointLabels: { color: '#e2e8f0', font: { size: 13, family: 'Inter' } },
+                            ticks: { display: false, min: 0, max: 100 } // Hide scale numbers
+                        }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        // ==========================================
+        // PROJECT CHARTS
+        // ==========================================
         function renderImportanceChart() {
             const ctx = document.getElementById('importanceChart').getContext('2d');
             new Chart(ctx, {
@@ -428,15 +806,15 @@ best_oof = weight * stack_oof + (1.0 - weight) * simple_oof
                     datasets: [{
                         label: 'Feature Importance Score',
                         data: [0.277, 0.182, 0.109, 0.066, 0.064, 0.050, 0.046, 0.046, 0.043, 0.038],
-                        backgroundColor: 'rgba(56, 189, 248, 0.85)',
-                        borderColor: '#38bdf8',
+                        backgroundColor: 'rgba(14, 165, 233, 0.8)',
+                        borderColor: '#0ea5e9',
                         borderWidth: 1,
                         borderRadius: 4
                     }]
                 },
                 options: {
                     responsive: true, maintainAspectRatio: false,
-                    indexAxis: 'y', // Makes it a horizontal bar chart
+                    indexAxis: 'y',
                     scales: {
                         x: { grid: { color: '#1e293b' }, ticks: { color: '#94a3b8' } },
                         y: { grid: { display: false }, ticks: { color: '#e2e8f0' } }
@@ -446,45 +824,103 @@ best_oof = weight * stack_oof + (1.0 - weight) * simple_oof
             });
         }
 
-        // 2. Feature Scaling Demo Chart
         function renderScalingChart() {
             const ctx = document.getElementById('scalingChart').getContext('2d');
-            
-            // Simulating skewed data vs normalized data
             const xLabels = Array.from({length: 50}, (_, i) => i - 25);
             const skewedData = xLabels.map(x => x > -20 && x < 10 ? Math.pow(1.2, -Math.abs(x + 10)) * 100 : 0);
-            const robustData = xLabels.map(x => Math.exp(-Math.pow(x, 2) / 20) * 100); // Bell curve centered at 0
+            const robustData = xLabels.map(x => Math.exp(-Math.pow(x, 2) / 20) * 100); 
 
             new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: xLabels,
                     datasets: [
-                        {
-                            label: 'Raw Spend (Skewed Outliers)',
-                            data: skewedData,
-                            borderColor: 'rgba(225, 29, 72, 0.8)',
-                            backgroundColor: 'rgba(225, 29, 72, 0.1)',
-                            fill: true, tension: 0.4, pointRadius: 0
-                        },
-                        {
-                            label: 'After Log1p Transformation',
-                            data: robustData,
-                            borderColor: '#38bdf8',
-                            backgroundColor: 'rgba(56, 189, 248, 0.2)',
-                            fill: true, tension: 0.4, pointRadius: 0
-                        }
+                        { label: 'Raw Spend (Skewed Outliers)', data: skewedData, borderColor: 'rgba(225, 29, 72, 0.8)', backgroundColor: 'rgba(225, 29, 72, 0.1)', fill: true, tension: 0.4, pointRadius: 0 },
+                        { label: 'After Log1p Transformation', data: robustData, borderColor: '#0ea5e9', backgroundColor: 'rgba(14, 165, 233, 0.2)', fill: true, tension: 0.4, pointRadius: 0 }
                     ]
                 },
                 options: {
                     responsive: true, maintainAspectRatio: false,
-                    scales: {
-                        x: { display: false }, 
-                        y: { display: false }
-                    },
-                    plugins: { 
-                        legend: { labels: { color: '#e2e8f0' } } 
-                    }
+                    scales: { x: { display: false }, y: { display: false } },
+                    plugins: { legend: { labels: { color: '#e2e8f0' } } }
+                }
+            });
+        }
+
+        // ==========================================
+        // LAB CHARTS (Reconstructing Matplotlib)
+        // ==========================================
+        function renderLabCharts() {
+            if (labChartsRendered) return;
+            labChartsRendered = true;
+
+            Chart.defaults.color = '#94a3b8';
+            Chart.defaults.borderColor = '#1e293b';
+
+            // LAB 1: Chapter 3 - Function Composition
+            const ctx3 = document.getElementById('labChart3').getContext('2d');
+            const xVal3 = Array.from({length: 100}, (_, i) => -5 + (i * 0.1));
+            const y_f = xVal3.map(x => x*x);
+            const y_g = xVal3.map(x => 2*x + 1);
+            const y_fog = xVal3.map(x => Math.pow((2*x + 1), 2));
+
+            new Chart(ctx3, {
+                type: 'line',
+                data: {
+                    labels: xVal3.map(x => x.toFixed(1)),
+                    datasets: [
+                        { label: 'f(x) = x²', data: y_f, borderColor: '#f472b6', borderWidth: 2, pointRadius: 0, borderDash: [5, 5] },
+                        { label: 'g(x) = 2x + 1', data: y_g, borderColor: '#34d399', borderWidth: 2, pointRadius: 0, borderDash: [2, 2] },
+                        { label: 'f(g(x)) = (2x+1)²', data: y_fog, borderColor: '#0ea5e9', borderWidth: 3, pointRadius: 0 }
+                    ]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { title: { display: true, text: 'Function Composition Visualization', color: getComputedStyle(document.documentElement).getPropertyValue('--accent-blue').trim() }, legend: { labels: { color: '#e2e8f0' } } },
+                    scales: { x: { display: false }, y: { beginAtZero: false } }
+                }
+            });
+
+            // LAB 2: Chapter 4 - Neural Net Loss Curve
+            const ctx4 = document.getElementById('labChart4').getContext('2d');
+            const epochs = Array.from({length: 20}, (_, i) => i * 100);
+            // Simulating the exact exponential decay from the output: 0.69 -> 0.24
+            const lossData = epochs.map(e => 0.24 + (0.45 * Math.exp(-e / 300))); 
+
+            new Chart(ctx4, {
+                type: 'line',
+                data: {
+                    labels: epochs,
+                    datasets: [{
+                        label: 'Cross-Entropy Loss', data: lossData, borderColor: '#fbbf24', backgroundColor: 'rgba(251, 191, 36, 0.1)', fill: true, tension: 0.4, pointRadius: 2
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { title: { display: true, text: 'Training Loss Comparison', color: getComputedStyle(document.documentElement).getPropertyValue('--accent-blue').trim() } },
+                    scales: { x: { title: { display: true, text: 'Epochs' } }, y: { title: { display: true, text: 'Loss' } } }
+                }
+            });
+
+            // LAB 4: Exercise 7 - Bayes Posterior
+            const ctx7 = document.getElementById('labChart7').getContext('2d');
+            const prev = Array.from({length: 100}, (_, i) => 0.001 + (i * 0.005));
+            const sens = 0.90;
+            const fpr = 0.10;
+            const post = prev.map(p => ((sens * p) / (sens * p + fpr * (1 - p))) * 100);
+
+            new Chart(ctx7, {
+                type: 'line',
+                data: {
+                    labels: prev.map(p => (p*100).toFixed(1) + '%'),
+                    datasets: [{
+                        label: 'P(Disease | Test+)', data: post, borderColor: '#a855f7', borderWidth: 3, pointRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { title: { display: true, text: 'Effect of Prevalence on Posterior Probability', color: getComputedStyle(document.documentElement).getPropertyValue('--accent-blue').trim() }, legend: { display: false } },
+                    scales: { x: { title: { display: true, text: 'Disease Prevalence (%)' } }, y: { title: { display: true, text: 'P(Disease | Test +) (%)' } } }
                 }
             });
         }
