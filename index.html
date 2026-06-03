@@ -114,6 +114,31 @@
         }
         .btn-secondary:hover { background: rgba(56, 189, 248, 0.14); transform: translateY(-2px); }
 
+        @media (max-width: 720px) {
+            body { padding: 0 0.5rem; }
+            nav { flex-direction: column; align-items: stretch; padding: 1rem 1rem; }
+            .logo { position: relative; left: 0; text-align: center; width: 100%; margin-bottom: 0.8rem; }
+            .nav-links { justify-content: center; gap: 0.75rem; }
+            .nav-btn { padding: 0.7rem 0.9rem; font-size: 0.95rem; }
+            .container { padding: 2rem 1rem; }
+            h1 { font-size: 2.6rem; }
+            h2 { font-size: 1.75rem; }
+            h3 { font-size: 1.3rem; }
+            .panel { padding: 1.8rem; }
+            .code-box { font-size: 0.85rem; }
+            .about-header { flex-direction: column; align-items: flex-start; }
+            .profile-card { width: 100%; max-width: 220px; }
+            .project-tabs { gap: 0.5rem; }
+            .proj-tab-btn { flex: 1 1 100%; min-width: 0; padding: 0.75rem 1rem; text-align: center; }
+            .stat-grid { grid-template-columns: 1fr; }
+            .chart-container { height: 300px; }
+            .matrix-wrapper { flex-direction: column; }
+            .matrix { grid-template-columns: 1fr; grid-template-rows: repeat(6, auto); }
+            .matrix div { min-height: auto; padding: 0.75rem; }
+            .btn-primary, .btn-secondary { width: 100%; padding: 0.85rem 1rem; }
+            .page-section { padding-bottom: 1rem; }
+        }
+
     </style>
 </head>
 <body>
